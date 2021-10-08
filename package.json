@@ -1,7 +1,7 @@
 {
   "name": "reindeer_app",
   "homepage": "http://localhost:3000",
-  "proxy": "http://localhost:5984",
+  "proxy": "http://localhost:3000",
   "version": "0.1.0",
   "type": "module",
   "private": true,
