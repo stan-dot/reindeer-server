@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import StaleElementReferenceException
 import time
 
 
@@ -63,3 +64,59 @@ class LivingCostRequest(Request):
         if summary is None:
             summary = self._get_summary_by_country_and_city(driver)
         return self._get_single_person_spending_from_summary(summary)
+
+
+class TripAdvisorRequest(Request):
+
+    HOME_PAGE_URL = 'https://www.tripadvisor.co.uk/'
+
+    def __init__(self, city, country, webdriver_path):
+        self._city = city
+        self._country = country
+        self._webdriver_path = webdriver_path
+
+    def _get_hotels_list(self, city, country, driver):
+        url = self.HOME_PAGE_URL + '/Search?q=' + self._city
+        driver.get(url)
+        self._consent_cookies(driver)
+        try:
+            site_type_panel = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.ID, 'search-filters'))
+            )
+            if not self._click_on_hotels_link(driver, site_type_panel):
+                raise Exception('Could not click on the hotels list')
+        except Exception as e:
+            print(e.__str__())
+            hotels_list = None
+
+    @staticmethod
+    def _click_on_hotels_link(driver, site_type_panel):
+        click_patience = 10
+        start = time.time()
+        clicked = False
+        while time.time() - start <= click_patience and (not clicked):
+            try:
+                site_type_panel = driver.find_element_by_id('search-filters')
+                hotels_ul = site_type_panel.find_elements_by_tag_name('ul')[0]
+                hotels_li = hotels_ul.find_elements_by_tag_name('li')[1]
+                hotels_a = hotels_li.find_elements_by_tag_name('a')[0]
+                hotels_a.click()
+                clicked = True
+            except StaleElementReferenceException as e:
+                pass
+        return clicked
+
+    @staticmethod
+    def _consent_cookies(driver):
+        try:
+            cookie_consent_button = WebDriverWait(driver, 2).until(
+                EC.presence_of_element_located((By.ID, '_evidon-accept-button'))
+            )
+            cookie_consent_button.send_keys(Keys.RETURN)
+        except Exception as e:
+            print(e.__str__())
+
+    def execute(self):
+        driver = webdriver.Chrome(self._webdriver_path)
+        self._get_hotels_list(self._city, self._country, driver)
+        return None

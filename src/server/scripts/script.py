@@ -1,4 +1,4 @@
-from web_requests.Requests import LivingCostRequest
+from web_requests.Requests import LivingCostRequest, TripAdvisorRequest
 """
 
 Input: country, city, budget, duration, etc.
@@ -8,7 +8,7 @@ Output: list of places
 
 
 def main():
-    r = LivingCostRequest('New York', 'United States', "/home/wojciech/chromedriver/chromedriver")
+    r = TripAdvisorRequest('New York', 'United States', "/home/wojciech/chromedriver/chromedriver")
     print(r.execute())
 
 
