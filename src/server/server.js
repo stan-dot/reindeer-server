@@ -2,6 +2,7 @@
 import express  from 'express';
 import http from 'http';
 import {Server } from "socket.io"
+// https://openmoji.org/library/#search=deer&emoji=1F98C deer emoji source
 const app = express()
 const port = 3000
 const server = http.createServer(app);

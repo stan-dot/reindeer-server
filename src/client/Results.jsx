@@ -1,8 +1,4 @@
-import { Box } from "@material-ui/core";
-import { ImageList } from "@material-ui/core";
-import { TextField } from "@material-ui/core";
-
-import { ImageListItem } from "@material-ui/core";
+import { Box, ImageList, TextField, ImageListItem } from "@material-ui/core";
 
 const itemData = [
   {
