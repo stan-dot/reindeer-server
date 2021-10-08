@@ -8,6 +8,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { io } from 'socket.io-client';
+import { MyButton } from './helpers/Elements';
 
 const currencies = [
   {
@@ -47,12 +48,11 @@ export default function Form() {
   socket.on("data", data => {
 
   })
-  const [value, onChange] = useState([new Date(), new Date()]); const [currency, setCurrency] = React.useState('EUR');
+  const [value, onChange] = useState([new Date(), new Date()]);
+  const [currency, setCurrency] = React.useState('EUR');
   const handleChange = (event) => {
     setCurrency(event.target.value);
   };
-
-
   return <Box
     component="form"
     sx={{
@@ -73,13 +73,17 @@ export default function Form() {
       id="filled-basic"
       label="budgetPerPerson"
       variant="filled" />
-
     <TextField
       id="standard-basic"
-      label="numberOfPeople"
+      label="City"
       variant="standard" />
+    <TextField
+      id="standard-basic"
+      label="Number of people"
+      variant="standard" select />
 
     <DateRangePicker
+      fontFamily={"sans-serif"}
       value={value}
       onChange={onChange}
     />
@@ -93,70 +97,23 @@ export default function Form() {
       label="languages"
       variant="standard"
     />
-    <ButtonGroup variant='contained'>
-      <Button
-        className={"submitButton"}
-        variant="contained"
-        id="submitButton"
-        color="primary"
-        component="button"
-        onClick={console.log("clicked!")}
-        disabled={false}>
-        Submit
-      </Button>
-      <Button
-        className={"resetButton"}
-        variant="contained"
-        id="resetButton"
-        color="primary"
-        component="button"
-        onClick={console.log("clicked!")}
-        disabled={false}>
-        Reset
-      </Button>;
-    </ButtonGroup>
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
+    <TextField
+      id="outlined-select-currency"
+      select
+      label="Select"
+      value={currency}
+      onChange={handleChange}
+      helperText="Please select your currency"
     >
-      <div>
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Select"
-          value={currency}
-          onChange={handleChange}
-          helperText="Please select your currency"
-        >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="outlined-select-currency-native"
-          select
-          label="Native select"
-          value={currency}
-          onChange={handleChange}
-          SelectProps={{
-            native: true,
-          }}
-          helperText="Please select your currency"
-        >
-          {currencies.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-      </div>
-      
-    </Box>
+      {currencies.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
+    <ButtonGroup variant='contained'>
+      <MyButton name={"submit"} />
+      <MyButton name={"reset"} />
+    </ButtonGroup>
   </Box>
 }

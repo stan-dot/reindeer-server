@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  height:100%
+  height: 100%;
 }
 
 .App-logo {
@@ -36,4 +36,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+* {
+  font-family: "Bungee Inline", cursive;
+  font-family: "Open Sans", sans-serif;
+  font-family: "Press Start 2P", cursive;
 }

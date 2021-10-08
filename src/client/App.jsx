@@ -22,11 +22,11 @@ export default function App() {
       height={IMG_DIMENSIONS.HEIGHT}
       width={IMG_DIMENSIONS.WIDTH}
     />
-    <AppBar position="static">
-      <Toolbar className="App-header">
-        <p>
-        </p>
-        <Button variant="contained">Hello World</Button>
+    <AppBar position="static"
+      color='#800020'
+    >
+      <Toolbar className="App-header"
+        color="inherit">
       </Toolbar>
     </AppBar>
     <Form />
