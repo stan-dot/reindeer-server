@@ -85,7 +85,7 @@ class TripAdvisorRequest(Request):
                 EC.presence_of_element_located((By.ID, 'search-filters'))
             )
             if not self._click_on_hotels_link(driver, site_type_panel):
-                raise Exception('Could not click on the hotels list')
+                raise Exception('Could not click on the hotels.json list')
             WebDriverWait(driver, 5).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'result-title'))
             )
