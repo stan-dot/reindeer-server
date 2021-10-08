@@ -1,4 +1,5 @@
 import { Box, ImageList, TextField, ImageListItem } from "@material-ui/core";
+import { io } from 'socket.io-client';
 
 const itemData = [
   {
@@ -70,6 +71,10 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 export default function Results() {
+  const socket = io()
+  socket.on("data", data => {
+
+  })
   return <Box
     component="form"
     sx={{

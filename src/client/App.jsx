@@ -1,5 +1,4 @@
 import reindeer from './reindeer.jpg'
-import logo from './logo.svg';
 import './App.css';
 import Results from './Results';
 import Button from '@material-ui/core/Button';
@@ -9,7 +8,7 @@ import { Paper } from '@material-ui/core';
 import Form from './Form';
 
 const IMG_DIMENSIONS = {
-  WIDTH: 400,
+  WIDTH: 600,
   HEIGHT: 400
 }
 // https://unsplash.com/photos/mSaa5BVUoY8 source of the photo
@@ -30,11 +29,7 @@ export default function App() {
         <Button variant="contained">Hello World</Button>
       </Toolbar>
     </AppBar>
-    <Paper>
-      <Form />
-    </Paper>
-    <Paper>
-      <Results />
-    </Paper>
+    <Form />
+    <Results />
   </div >
 }
