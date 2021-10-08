@@ -1,7 +1,11 @@
 {
   "name": "reindeer_app",
+  "homepage": "http://localhost:3000",
+  "proxy": "http://localhost:5984",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
+  "main": "server/server.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -11,6 +15,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "socket.io": "^4.2.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
