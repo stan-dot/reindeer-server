@@ -50,7 +50,7 @@ export default function Form() {
   })
   const [value, onChange] = useState([new Date(), new Date()]);
   const [currency, setCurrency] = React.useState('EUR');
-  const handleChange = (event) => {
+  const handleChange = event => {
     setCurrency(event.target.value);
   };
   return <Box
@@ -62,7 +62,7 @@ export default function Form() {
     autoComplete="off"
   >
     <Typography variant='h6' gutterBottom component={"div"}>
-      search the terms you need
+      Search the terms you need
     </Typography>
     <TextField
       id="outlined-basic"

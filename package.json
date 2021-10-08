@@ -20,6 +20,7 @@
     "react-scripts": "4.0.3",
     "socket.io": "^4.2.0",
     "socket.io-client": "^4.2.0",
+    "vis-graph3d": "^6.0.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
