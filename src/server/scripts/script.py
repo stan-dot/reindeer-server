@@ -1,4 +1,4 @@
-from web_requests.Requests import LivingCostRequest
+from web_requests.Requests import LivingCostRequest, TripAdvisorRequest
 import sys
 import json
 
@@ -17,8 +17,8 @@ To the world""",
 
 def main():
     print(json.dumps(send_message_back))
-    r = LivingCostRequest(
-        "New York", "United States", "/home/wojciech/chromedriver/chromedriver"
+    r = TripAdvisorRequest(
+        "Edinburgh", "United Kingdom", "/home/wojciech/chromedriver/chromedriver"
     )
     print(r.execute())
 

@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 import time
 
 
@@ -79,15 +79,40 @@ class TripAdvisorRequest(Request):
         url = self.HOME_PAGE_URL + '/Search?q=' + self._city
         driver.get(url)
         self._consent_cookies(driver)
+        hotels_list = []
         try:
             site_type_panel = WebDriverWait(driver, 5).until(
                 EC.presence_of_element_located((By.ID, 'search-filters'))
             )
             if not self._click_on_hotels_link(driver, site_type_panel):
                 raise Exception('Could not click on the hotels list')
+            WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.CLASS_NAME, 'result-title'))
+            )
+            hotels_divs = driver.find_elements_by_class_name('result-title')
+            for h_div in hotels_divs:
+                hotels_list.append(self._get_hotel_info(driver, h_div))
         except Exception as e:
-            print(e.__str__())
-            hotels_list = None
+            print("_get_hotels_list: " + e.__str__())
+        return hotels_list
+
+    def _get_hotel_info(self, driver, hotel_div):
+        hotel_div.click()
+        time.sleep(1)
+        driver.switch_to.window(driver.window_handles[1])
+        hotel_url = driver.current_url
+        try:
+            price_el = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.CLASS_NAME, 'fzleB'))
+            )
+            price = price_el.text
+        except TimeoutException as e:
+            print("_get_hotel_info: " + e.__str__())
+            price = -1
+        finally:
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
+            return self._city, hotel_url, price
 
     @staticmethod
     def _click_on_hotels_link(driver, site_type_panel):
@@ -118,5 +143,9 @@ class TripAdvisorRequest(Request):
 
     def execute(self):
         driver = webdriver.Chrome(self._webdriver_path)
-        self._get_hotels_list(self._city, self._country, driver)
-        return None
+        hotels_list = self._get_hotels_list(self._city, self._country, driver)
+        hotels_dict_list = []
+        for city, link, price in hotels_list:
+            if price != -1:
+                hotels_dict_list.append({'city': city, 'link': link, 'price': price})
+        return hotels_dict_list
