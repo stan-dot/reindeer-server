@@ -63,3 +63,6 @@ class JsonRepository:
             if predicate(h):
                 hotels.append(h)
         return hotels
+
+    def find_all(self):
+        return self._objects_list
