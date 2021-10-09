@@ -1,12 +1,13 @@
 import { Button, Grid, Paper } from '@material-ui/core';
-import { ImageList , SearchIcon} from '@mui/material';
+import { ImageList , } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import React from 'react';
 import './App.css';
 import Form from './Form';
 import frame from './img/reindeer-frame.jpg';
-import ReindeerImg from './ReindeerImg';
+import ReindeerImg from './helpers/ReindeerImg';
 import Results from './Results';
 import { MyContainerGrid } from './helpers/MyContainerGrid';
 // https://unsplash.com/photos/mSaa5BVUoY8 source of the photo
