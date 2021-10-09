@@ -1,4 +1,5 @@
-import reindeer from './reindeer.jpg'
+import reindeer from './img/reindeer.jpg'
+import zoom from './img/reindeer-zoom.jpg'
 import './App.css';
 import Results from './Results';
 import AppBar from '@material-ui/core/AppBar';
@@ -30,6 +31,14 @@ export default function App() {
       <Toolbar className="App-header"
         color="inherit">
       </Toolbar>
+         <img
+      src={zoom}
+      rel="reindeer-zoom"
+      href="%PUBLIC_URL%/reindeer-zoom.jpg"
+      alt='reindeer zoom'
+      height={IMG_DIMENSIONS.HEIGHT  /3}
+      width={IMG_DIMENSIONS.WIDTH/4}
+    />
     </AppBar>
     <Form />
     <Results />
