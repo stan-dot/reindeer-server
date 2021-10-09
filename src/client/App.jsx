@@ -1,6 +1,5 @@
 import { Button, Grid, Paper } from '@material-ui/core';
 import { ImageList , } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import React from 'react';
@@ -32,7 +31,7 @@ export default function App() {
     </ImageList>
     <AppBar position="static">
       <Toolbar className="App-header" color="inherit">
-        <Button ><SearchIcon /> search again</Button>
+        <Button > search again</Button>
       </Toolbar>
     </AppBar>
     <Paper elevation={2}>
