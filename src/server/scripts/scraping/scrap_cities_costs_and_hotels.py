@@ -4,7 +4,7 @@ import json
 
 CITIES_FILE_PATH = '../data/cities.json'
 LIVING_COST_FILE_PATH = '../data/livingCost.json'
-HOTELS_FILE_PATH = '../data/hotels.json'
+HOTELS_FILE_PATH = '../data/new_hotels.json'
 
 
 def main():

@@ -3,14 +3,14 @@ import json
 from currency_convert import convert_to_dollars
 
 
-RAW_HOTEL_JSON_PATH = '../data/hotels.json'
-DOLLAR_HOTEL_JSON_PATH = '../data/dollarHotels.json'
+RAW_HOTEL_JSON_PATH = '../data/new_hotels.json'
+DOLLAR_HOTEL_JSON_PATH = '../data/new_dollarHotels.json'
 
 
 def main():
     hotels_df = pd.DataFrame()
     with open(RAW_HOTEL_JSON_PATH, 'r') as f:
-        hotels_list = json.load(f)
+        hotels_list = json.load(f)[:462]
     hotels_df['city'] = [obj['city'] for obj in hotels_list]
     hotels_df['link'] = [obj['link'] for obj in hotels_list]
     hotels_df['price'] = [obj['price'] for obj in hotels_list]

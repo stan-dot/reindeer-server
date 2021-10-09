@@ -17,7 +17,7 @@ To the world""",
 
 
 def main():
-    print(best_trips('Vienna', 10000, 2, 1))
+    print(best_trips('New York', 1700, 1, 1))
     print(json.dumps(send_message_back))
 
 
