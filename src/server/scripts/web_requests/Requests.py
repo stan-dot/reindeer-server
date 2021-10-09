@@ -9,7 +9,7 @@ import time
 import urllib3
 
 
-IMAGES_DIR = 'data/images/'
+IMAGES_DIR = '../data/images/'
 
 
 class Request:
@@ -209,6 +209,7 @@ class GoogleImageRequest(Request):
     def execute(self):
         chrome_opt = Options()
         chrome_opt.add_argument("--headless")
-        driver = webdriver.Chrome(self._webdriver_path)
+        driver = webdriver.Chrome(self._webdriver_path, options=chrome_opt)
         image_map = self._get_images(driver)
+        driver.close()
         return image_map
