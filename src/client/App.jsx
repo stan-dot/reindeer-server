@@ -1,5 +1,5 @@
 import { Button, Grid, Paper } from '@material-ui/core';
-import { ImageList } from '@mui/material';
+import { ImageList , SearchIcon} from '@mui/material';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import React from 'react';
@@ -8,8 +8,7 @@ import Form from './Form';
 import frame from './img/reindeer-frame.jpg';
 import ReindeerImg from './ReindeerImg';
 import Results from './Results';
-
-import SearchIcon from '@mui/icons-material/Search';
+import { MyContainerGrid } from './helpers/MyContainerGrid';
 // https://unsplash.com/photos/mSaa5BVUoY8 source of the photo
 // https://fonts.google.com/specimen/Bungee+Inline?category=Display#about the font
 // TODO https://github.com/mui-org/material-ui/blob/next/docs/src/pages/getting-started/templates/album/Album.js
@@ -36,20 +35,16 @@ export default function App() {
       </Toolbar>
     </AppBar>
     <Paper elevation={2}>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '100vh' }}
-      >
+      <MyContainerGrid>
         <Grid item xs={3}>
           <Form />
+        </Grid>
+        <Grid item xs={3}>
           <Paper elevation={6}>
             <Results />
           </Paper>
         </Grid>
-      </Grid></Paper>
+      </MyContainerGrid>
+    </Paper>
   </div >
 }

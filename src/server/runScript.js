@@ -1,16 +1,16 @@
+
+import { spawn } from 'child_process';
 const myPath = './src/server/scripts/script.py';
-const { spawn } = require('child_process')
 
-const logOutput = (name) => (message) => console.log(`[${name}] ${message}`)
+export const logOutput = (name) => (message) => console.log(`[${name}] ${message}`)
 
-function run() {
+export default function run(args) {
   return new Promise((resolve, reject) => {
-    const process = spawn('python', [myPath, 'my', 'args']);
+    const process = spawn('python', [myPath, [...args]]);
 
     const out = []
     process.stdout.on(
-      'data',
-      (data) => {
+      'data', data => {
         out.push(data.toString());
         logOutput('stdout')(data);
       }
@@ -18,8 +18,7 @@ function run() {
 
     const err = []
     process.stderr.on(
-      'data',
-      (data) => {
+      'data', data => {
         err.push(data.toString());
         logOutput('stderr')(data);
       }
@@ -33,20 +32,9 @@ function run() {
       }
       try {
         resolve(JSON.parse(out[0]));
-      } catch(e) {
+      } catch (e) {
         reject(e);
       }
     });
   });
 }
-
-(async () => {
-  try {
-    const output = await run()
-    logOutput('main')(output.message)
-    process.exit(0)
-  } catch (e) {
-    console.error('Error during script execution ', e.stack);
-    process.exit(1);
-  }
-})();
