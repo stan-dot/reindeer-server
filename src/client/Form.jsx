@@ -22,37 +22,6 @@ const currencies = [
   },
 ];
 
-// TODO add more https://www.nhs.uk/conditions/travel-vaccinations/jabs/
-const vaccinations = [
-  {
-    value: 'COVID-EU',
-    label: 'COVID-EU',
-  },
-  {
-    value: 'COVID-UK',
-    label: 'COVID-UK'
-  },
-  {
-    value: 'tuberculosis',
-    lable: 'Tuberculosis'
-  }
-]
-
-const languages = [
-  {
-    value: 'english',
-    label: 'English'
-  },
-  {
-    value: 'spanish',
-    label: 'Spanish'
-  },
-  {
-    value: 'arabic',
-    label: 'Arabic'
-  }
-]
-
 const TEXTFIELD_LABELS = {
   OUTLINED: "outlined",
   FILLED: "filled",
@@ -61,33 +30,37 @@ const TEXTFIELD_LABELS = {
 
 /**
  * PARAMETERS FOR SEARCH
- * hotel stars
  * money per person
  * number of people
  * city
  * time
-  TODO add adornment icons https://codesandbox.io/s/kkx7n?file=/demo.js
- * vaccination status
- * language
  * @returns 
  */
 export default function Form() {
   const socket = io()
   socket.on("data", data => {
   })
-  const [value, onChange] = useState([new Date(), new Date()]);
+  const [dateStatus, onChange] = useState([new Date(), new Date()]);
   const [currency, setCurrency] = React.useState('EUR');
-  const [vaccination, setVaccinaton] = React.useState('COVID-UK');
-  const [language, setLanguage] = React.useState('English');
-  const handleLanguageChange = event => {
-    setLanguage(event.target.value);
-  }
-  const handleVaccineChange = event => {
-    setVaccinaton(event.target.value)
-  }
-  const handleChange = event => {
+  const [city, setCity] = React.useState("")
+  const handleCurrencyChange = event => {
     setCurrency(event.target.value);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const diffTime = Math.abs(dateStatus[0] - dateStatus[1]);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const formData = {
+      days: diffDays,
+      budget: 100,
+      number: 2,
+      city: city,
+    }
+    console.log(formData);
+    socket.emit("query", formData)
+  };
+
   return <Box
     component="form"
     sx={{
@@ -97,47 +70,9 @@ export default function Form() {
     autoComplete="off"
   >
     <Paper elevation={5}>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '10vh' }}
-      >
-        <MyTextField str="hotel-stars " />
+      <MyContainerGrid>
         <MyTextField str="budget-per-person" />
         <MyTextField str="city" />
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Vaccination"
-          value={vaccination}
-          onChange={handleVaccineChange}
-          helperText="Please select your vaccine"
-          style={{ minHeight: '10vh' }}
-        >
-          {vaccinations.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="outlined-select-language"
-          select
-          label="Language"
-          value={language}
-          onChange={handleLanguageChange}
-          helperText="Choose language you'd like to practice on this trip"
-          style={{ minHeight: '10vh' }}
-        >
-          {languages.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
         <TextField
           id="outlined-select-group-size"
           select
@@ -153,7 +88,7 @@ export default function Form() {
         </TextField>
         <DateRangePicker
           fontFamily={"sans-serif"}
-          value={value}
+          value={dateStatus}
           onChange={onChange}
           style={{ minHeight: '10vh' }}
         />
@@ -162,7 +97,7 @@ export default function Form() {
           select
           label="Select"
           value={currency}
-          onChange={handleChange}
+          onChange={handleCurrencyChange}
           helperText="Please select your currency"
           style={{ minHeight: '10vh' }}
         >
@@ -172,22 +107,28 @@ export default function Form() {
             </MenuItem>
           ))}
         </TextField>
-      </Grid>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '10vh' }}
-      >
+      </MyContainerGrid>
+      <MyContainerGrid>
         <ButtonGroup variant='contained' aria-label="outlined primary button group" >
           <MyButton name={"submit"} />
           <MyButton name={"reset"} />
         </ButtonGroup>
-      </Grid>
+      </MyContainerGrid>
     </Paper>
   </Box >
+}
+
+function MyContainerGrid({ children }) {
+  return <Grid
+    container
+    spacing={0}
+    direction="column"
+    alignItems="center"
+    justifyContent="center"
+    style={{ minHeight: '10vh' }}
+  >
+    {children}
+  </Grid>
 }
 
 function MyTextField({ str, variant = TEXTFIELD_LABELS.OUTLINED }) {
@@ -201,20 +142,5 @@ function MyTextField({ str, variant = TEXTFIELD_LABELS.OUTLINED }) {
     label={label}
     variant={variant}
     style={{ minHeight: '10vh' }}
-  />
-}
-
-function MySelectField({ str, variant = TEXTFIELD_LABELS.OUTLINED, ...options }) {
-  const wordsArray = str.split("-");
-  const normalizedArray = wordsArray.map(word => {
-    return word[0].toUpperCase() + word.substring(1).toLowerCase();
-  })
-  const label = normalizedArray.join(" ");
-  return <TextField
-    id={str}
-    label={label}
-    variant={variant}
-    style={{ minHeight: '10vh', padding: '10px' }}
-    select
   />
 }
