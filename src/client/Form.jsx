@@ -9,7 +9,7 @@ import { useState } from 'react';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { io } from 'socket.io-client';
 import { MyButton } from './helpers/Elements';
-import { currencies } from './currencies';
+import { currencies } from './helpers/currencies';
 import { MyContainerGrid, MyTextField } from './MyContainerGrid';
 
 /**
