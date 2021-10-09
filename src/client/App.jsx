@@ -1,15 +1,14 @@
-import reindeer from './img/reindeer.jpg'
-import zoom from './img/reindeer-zoom.jpg'
-import './App.css';
-import Results from './Results';
+import { Grid } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import React from 'react';
+import './App.css';
+import Centering4Ways from './Centering4Ways';
+import { IMG_DIMENSIONS } from './Constants';
 import Form from './Form';
-
-const IMG_DIMENSIONS = {
-  WIDTH: 600,
-  HEIGHT: 400
-}
+import zoom from './img/reindeer-zoom.jpg';
+import reindeer from './img/reindeer.jpg';
+import Results from './Results';
 
 // https://unsplash.com/photos/mSaa5BVUoY8 source of the photo
 // https://fonts.google.com/specimen/Bungee+Inline?category=Display#about the font
@@ -26,21 +25,33 @@ export default function App() {
       width={IMG_DIMENSIONS.WIDTH}
     />
     <AppBar position="static"
-      color='#800020'
     >
       <Toolbar className="App-header"
         color="inherit">
       </Toolbar>
-         <img
-      src={zoom}
-      rel="reindeer-zoom"
-      href="%PUBLIC_URL%/reindeer-zoom.jpg"
-      alt='reindeer zoom'
-      height={IMG_DIMENSIONS.HEIGHT  /3}
-      width={IMG_DIMENSIONS.WIDTH/4}
-    />
+      <img
+        src={zoom}
+        rel="reindeer-zoom"
+        href="%PUBLIC_URL%/reindeer-zoom.jpg"
+        alt='reindeer zoom'
+        height={IMG_DIMENSIONS.HEIGHT / 3}
+        width={IMG_DIMENSIONS.WIDTH / 4}
+      />
     </AppBar>
-    <Form />
-    <Results />
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '100vh' }}
+    >
+      <Grid item xs={3}>
+        <Form />
+        <Results />
+        <Centering4Ways />
+      </Grid>
+    </Grid>
+
   </div >
 }
