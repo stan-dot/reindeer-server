@@ -15,8 +15,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #29463e;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,5 +41,5 @@
   font-family: "Bungee Inline", cursive;
   font-family: "Open Sans", sans-serif;
   font-family: "Press Start 2P", cursive;
-  background-color: "#aeb5b3",
+  background-color: #aeb5b3,
 }

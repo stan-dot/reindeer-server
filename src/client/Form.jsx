@@ -1,5 +1,6 @@
-import { Button } from '@material-ui/core';
+import { Button, Paper } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import { Grid } from '@material-ui/core';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -61,59 +62,59 @@ export default function Form() {
     noValidate
     autoComplete="off"
   >
-    <Typography variant='h6' gutterBottom component={"div"}>
-      Search the terms you need
-    </Typography>
-    <TextField
-      id="outlined-basic"
-      label="hotelStars"
-      variant={TEXTFIELD_LABELS.OUTLINED}
-    />
-    <TextField
-      id="filled-basic"
-      label="budgetPerPerson"
-      variant="filled" />
-    <TextField
-      id="standard-basic"
-      label="City"
-      variant="standard" />
-    <TextField
-      id="standard-basic"
-      label="Number of people"
-      variant="standard" select />
+    <Paper elevation={5}>
+      <MyTextField str="hotelStars" />
+      <MyTextField str="budgetPerPerson" />
+      <MyTextField str="city" />
+      <MyTextField str="numberOfTravellers" />
+      <MyTextField str="vaccinations" />
+      <MyTextField str="languages" />
+      <TextField
+        id="standard-basic"
+        label="Number of people"
+        variant="standard" select />
 
-    <DateRangePicker
-      fontFamily={"sans-serif"}
-      value={value}
-      onChange={onChange}
-    />
-    <TextField
-      id="standard-basic"
-      label="vaccinations"
-      variant="standard"
-    />
-    <TextField
-      id="standard-basic"
-      label="languages"
-      variant="standard"
-    />
-    <TextField
-      id="outlined-select-currency"
-      select
-      label="Select"
-      value={currency}
-      onChange={handleChange}
-      helperText="Please select your currency"
+      <DateRangePicker
+        fontFamily={"sans-serif"}
+        value={value}
+        onChange={onChange}
+      />
+      <TextField
+        id="outlined-select-currency"
+        select
+        label="Select"
+        value={currency}
+        onChange={handleChange}
+        helperText="Please select your currency"
+      >
+        {currencies.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+    </Paper>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '10vh' }}
     >
-      {currencies.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
-    </TextField>
-    <ButtonGroup variant='contained'>
-      <MyButton name={"submit"} />
-      <MyButton name={"reset"} />
-    </ButtonGroup>
+      <ButtonGroup variant='contained' aria-label="outlined primary button group" >
+        <MyButton name={"submit"} />
+        <MyButton name={"reset"} />
+      </ButtonGroup>
+    </Grid>
   </Box>
+}
+
+function MyTextField({ str, variant = TEXTFIELD_LABELS.OUTLINED }) {
+  return <TextField
+    id={str}
+    label={str.toLowerCase()}
+    variant={variant}
+    style={{minHeight:'10vh'}}
+  />
 }
