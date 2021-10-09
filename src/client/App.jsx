@@ -1,4 +1,5 @@
 import { Button, Grid, Paper } from '@material-ui/core';
+import { ImageList } from '@mui/material';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import React from 'react';
@@ -14,12 +15,17 @@ import SearchIcon from '@mui/icons-material/Search';
 // TODO https://github.com/mui-org/material-ui/blob/next/docs/src/pages/getting-started/templates/album/Album.js
 // TODO https://www.jamestharpe.com/react-visjs/
 export default function App() {
-  const [hasSearched, toggleHasSearched] = React.useState(false);
   return <div className="App">
-    <ReindeerImg name={frame} />
+    <ImageList
+      sx={{ width: 500, height: 350 }}
+      variant="quilted"
+      cols={3}
+      rowHeight={350}
+    >
+      <ReindeerImg name={frame} />
+    </ImageList>
     <AppBar position="static">
-      <Toolbar className="App-header"
-        color="inherit">
+      <Toolbar className="App-header" color="inherit">
         <Button ><SearchIcon /> search again</Button>
       </Toolbar>
     </AppBar>

@@ -22,6 +22,36 @@ const currencies = [
   },
 ];
 
+// TODO add more https://www.nhs.uk/conditions/travel-vaccinations/jabs/
+const vaccinations = [
+  {
+    value: 'COVID-EU',
+    label: 'COVID-EU',
+  },
+  {
+    value: 'COVID-UK',
+    label: 'COVID-UK'
+  },
+  {
+    value: 'tuberculosis',
+    lable: 'Tuberculosis'
+  }
+]
+
+const languages = [
+  {
+    value: 'english',
+    label: 'English'
+  },
+  {
+    value: 'spanish',
+    label: 'Spanish'
+  },
+  {
+    value: 'arabic',
+    label: 'Arabic'
+  }
+]
 
 const TEXTFIELD_LABELS = {
   OUTLINED: "outlined",
@@ -34,23 +64,27 @@ const TEXTFIELD_LABELS = {
  * hotel stars
  * money per person
  * number of people
- * TODO a dropdown menu to see if per person or total
  * city
  * time
- * TODO use this https://www.npmjs.com/package/react-date-picker
- *
+  TODO add adornment icons https://codesandbox.io/s/kkx7n?file=/demo.js
  * vaccination status
  * language
- * TODO dropdown checklist for languages
  * @returns 
  */
 export default function Form() {
   const socket = io()
   socket.on("data", data => {
-
   })
   const [value, onChange] = useState([new Date(), new Date()]);
   const [currency, setCurrency] = React.useState('EUR');
+  const [vaccination, setVaccinaton] = React.useState('COVID-UK');
+  const [language, setLanguage] = React.useState('English');
+  const handleLanguageChange = event => {
+    setLanguage(event.target.value);
+  }
+  const handleVaccineChange = event => {
+    setVaccinaton(event.target.value)
+  }
   const handleChange = event => {
     setCurrency(event.target.value);
   };
@@ -63,58 +97,124 @@ export default function Form() {
     autoComplete="off"
   >
     <Paper elevation={5}>
-      <MyTextField str="hotelStars" />
-      <MyTextField str="budgetPerPerson" />
-      <MyTextField str="city" />
-      <MyTextField str="numberOfTravellers" />
-      <MyTextField str="vaccinations" />
-      <MyTextField str="languages" />
-      <TextField
-        id="standard-basic"
-        label="Number of people"
-        variant="standard" select />
-
-      <DateRangePicker
-        fontFamily={"sans-serif"}
-        value={value}
-        onChange={onChange}
-      />
-      <TextField
-        id="outlined-select-currency"
-        select
-        label="Select"
-        value={currency}
-        onChange={handleChange}
-        helperText="Please select your currency"
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        style={{ minHeight: '10vh' }}
       >
-        {currencies.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
+        <MyTextField str="hotel-stars " />
+        <MyTextField str="budget-per-person" />
+        <MyTextField str="city" />
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Vaccination"
+          value={vaccination}
+          onChange={handleVaccineChange}
+          helperText="Please select your vaccine"
+          style={{ minHeight: '10vh' }}
+        >
+          {vaccinations.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          id="outlined-select-language"
+          select
+          label="Language"
+          value={language}
+          onChange={handleLanguageChange}
+          helperText="Choose language you'd like to practice on this trip"
+          style={{ minHeight: '10vh' }}
+        >
+          {languages.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          id="outlined-select-group-size"
+          select
+          label="Group size"
+          helperText="Number of travellers"
+          style={{ minHeight: '10vh' }}
+        >
+          {[...Array(6)].map((_, i) => i).map(value => (
+            < MenuItem key={"key-" + value} value={value}>
+              {value}
+            </MenuItem>
+          ))}
+        </TextField>
+        <DateRangePicker
+          fontFamily={"sans-serif"}
+          value={value}
+          onChange={onChange}
+          style={{ minHeight: '10vh' }}
+        />
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Select"
+          value={currency}
+          onChange={handleChange}
+          helperText="Please select your currency"
+          style={{ minHeight: '10vh' }}
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Grid>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        style={{ minHeight: '10vh' }}
+      >
+        <ButtonGroup variant='contained' aria-label="outlined primary button group" >
+          <MyButton name={"submit"} />
+          <MyButton name={"reset"} />
+        </ButtonGroup>
+      </Grid>
     </Paper>
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      style={{ minHeight: '10vh' }}
-    >
-      <ButtonGroup variant='contained' aria-label="outlined primary button group" >
-        <MyButton name={"submit"} />
-        <MyButton name={"reset"} />
-      </ButtonGroup>
-    </Grid>
-  </Box>
+  </Box >
 }
 
 function MyTextField({ str, variant = TEXTFIELD_LABELS.OUTLINED }) {
+  const wordsArray = str.split("-");
+  const normalizedArray = wordsArray.map(word => {
+    return word[0].toUpperCase() + word.substring(1).toLowerCase();
+  })
+  const label = normalizedArray.join(" ");
   return <TextField
     id={str}
-    label={str.toLowerCase()}
+    label={label}
     variant={variant}
-    style={{minHeight:'10vh'}}
+    style={{ minHeight: '10vh' }}
+  />
+}
+
+function MySelectField({ str, variant = TEXTFIELD_LABELS.OUTLINED, ...options }) {
+  const wordsArray = str.split("-");
+  const normalizedArray = wordsArray.map(word => {
+    return word[0].toUpperCase() + word.substring(1).toLowerCase();
+  })
+  const label = normalizedArray.join(" ");
+  return <TextField
+    id={str}
+    label={label}
+    variant={variant}
+    style={{ minHeight: '10vh', padding: '10px' }}
+    select
   />
 }
