@@ -1,4 +1,5 @@
 
+
 przyroda / party / wypoczynek / substainable	focus
 int	gwiazdki hotel
 	ekran wprowadzania warunków brzegowych

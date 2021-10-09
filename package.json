@@ -1,16 +1,26 @@
 {
   "name": "reindeer_app",
+  "homepage": "http://localhost:3000",
+  "proxy": "http://localhost:3000",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
+  "main": "server/server.js",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@wojtekmaj/react-daterange-picker": "^3.3.1",
     "express": "^4.17.1",
     "node": "^16.10.0",
     "react": "^17.0.2",
+    "react-date-picker": "^8.3.3",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0",
+    "vis-graph3d": "^6.0.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
