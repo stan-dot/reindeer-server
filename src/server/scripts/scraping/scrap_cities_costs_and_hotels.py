@@ -22,11 +22,14 @@ def main():
             print(living_cost_object)
         '''
         hotels_object_list = get_hotels(city_name, country_name, 3)
+        print(hotels_object_list)
         hotels_list = hotels_list + hotels_object_list
+        with open(HOTELS_FILE_PATH, 'w') as f:
+            json.dump(hotels_list, f)
+
     # with open(LIVING_COST_FILE_PATH, 'w') as f:
     #    json.dump(living_cost_list, f)
-    with open(HOTELS_FILE_PATH, 'w') as f:
-        json.dump(hotels_list, f)
+    print(hotels_list)
 
 
 def get_hotels(city_name, country_name, patience=1):

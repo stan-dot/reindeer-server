@@ -1,4 +1,4 @@
-from web_requests.Requests import LivingCostRequest, TripAdvisorRequest
+from web_requests.Requests import LivingCostRequest, TripAdvisorRequest, GoogleImageRequest
 import sys
 import json
 
@@ -17,8 +17,8 @@ To the world""",
 
 def main():
     print(json.dumps(send_message_back))
-    r = TripAdvisorRequest(
-        "Edinburgh", "United Kingdom", "/home/wojciech/chromedriver/chromedriver"
+    r = GoogleImageRequest(
+        "Edinburgh", "United Kingdom", "/home/wojciech/chromedriver/chromedriver", 3
     )
     print(r.execute())
 

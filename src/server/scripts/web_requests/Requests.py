@@ -4,7 +4,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from selenium.webdriver.chrome.options import Options
 import time
+import urllib3
+
+
+IMAGES_DIR = 'data/images/'
 
 
 class Request:
@@ -146,7 +151,9 @@ class TripAdvisorRequest(Request):
             print(e.__str__())
 
     def execute(self):
-        driver = webdriver.Chrome(self._webdriver_path)
+        chrome_opt = Options()
+        chrome_opt.add_argument("--headless")
+        driver = webdriver.Chrome(self._webdriver_path, options=chrome_opt)
         hotels_list = self._get_hotels_list(self._city, self._country, driver)
         hotels_dict_list = []
         for city, link, price in hotels_list:
@@ -154,3 +161,54 @@ class TripAdvisorRequest(Request):
                 hotels_dict_list.append({'city': city, 'link': link, 'price': price})
         driver.close()
         return hotels_dict_list
+
+
+class GoogleImageRequest(Request):
+    _INITIAL_URL = 'https://www.google.com/search?q=edinburgh&sxsrf=AOaemvL01nzfbMMUfg5C41NmqQoTYxC_lQ:1633776993965&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiq2_fKlb3zAhWDgVwKHXjuBl8Q_AUoAnoECAEQBA&biw=1920&bih=787&dpr=1'
+
+    def __init__(self, city, country, webdriver_path, n_images=1):
+        self._webdriver_path = webdriver_path
+        self._city = city
+        self._country = country
+        self._n_images = n_images
+
+    def _get_images(self, driver):
+        mapping_objects = []
+        driver.get(self._INITIAL_URL)
+        try:
+            search_input = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'input[class=og3lId]'))
+            )
+            search_input.clear()
+            search_input.send_keys(self._city + ', ' + self._country)
+            search_input.send_keys(Keys.RETURN)
+            time.sleep(0.5)
+            images_panel = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'div[class=islrc]'))
+            )
+            images = images_panel.find_elements_by_tag_name('img')[:self._n_images]
+            f_names = self._download_images(images)
+            for f_name in f_names:
+                mapping_objects.append({'city': self._city, 'country': self._country, 'file': f_name})
+
+        except TimeoutException as e:
+            print("Searching for " + self._city + " timed out")
+        finally:
+            return mapping_objects
+
+    def _download_images(self, images):
+        f_names = []
+        for i, im in enumerate(images):
+            image = im.screenshot_as_png
+            f_name = self._city + str(i) + '.png'
+            with open(IMAGES_DIR + f_name, 'wb') as f:
+                f.write(image)
+                f_names.append(f_name)
+        return f_names
+
+    def execute(self):
+        chrome_opt = Options()
+        chrome_opt.add_argument("--headless")
+        driver = webdriver.Chrome(self._webdriver_path)
+        image_map = self._get_images(driver)
+        return image_map
