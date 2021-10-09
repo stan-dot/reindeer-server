@@ -1,3 +1,6 @@
+import json
+
+
 class Hotel:
     def __init__(self, city, link, price):
         self._city = city,
@@ -45,3 +48,18 @@ class Trip:
             'city': self._city.get_dict(),
             'hotel': self._hotel.get_dict()
         }
+
+
+class JsonRepository:
+    _objects_list = []
+
+    def load_from_json(self, f_name):
+        with open(f_name, 'r') as f:
+            self._objects_list = json.load(f)
+
+    def find_by(self, predicate):
+        hotels = []
+        for h in self._objects_list:
+            if predicate(h):
+                hotels.append(h)
+        return hotels
