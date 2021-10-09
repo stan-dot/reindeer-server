@@ -18,10 +18,16 @@ export default function App() {
   return <div className="App">
     <ImageList
       sx={{ width: 500, height: 350 }}
-      variant="quilted"
+      variant="woven"
       cols={3}
       rowHeight={350}
     >
+      <ReindeerImg name={frame} />
+      <ReindeerImg name={frame} />
+      <ReindeerImg name={frame} />
+      <ReindeerImg name={frame} />
+      <ReindeerImg name={frame} />
+      <ReindeerImg name={frame} />
       <ReindeerImg name={frame} />
     </ImageList>
     <AppBar position="static">
