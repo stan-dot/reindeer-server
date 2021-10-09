@@ -17,14 +17,18 @@ To the world""",
 }
 
 
+# example input {\"city\": \"New York\",\"budget\": 1700,\"currency\": \"GBP\",\"days\": 1,\"people\": 1}
+
+
 def main():
-    json_data = json.loads(" ".join(sys.argv[1:]))
+    json_str = " ".join(sys.argv[1:])
+    json_data = json.loads(json_str)
     city_name = json_data['city']
     currency_symbol = json_data['currency']
     budget = json_data['budget']
     days = json_data['days']
     n_people = json_data['people']
-    if currency_symbol is not 'USD':
+    if currency_symbol != 'USD':
         dollar_budget = convert_to_dollars(budget, currency_symbol)
     else:
         dollar_budget = budget
@@ -32,7 +36,7 @@ def main():
         trips = best_trips('London', dollar_budget, 1, 1)
     else:
         trips = best_trips_all_cities(dollar_budget, days, n_people)
-    print(json.dump(trips))
+    print(json.dumps(trips))
 
 
 if __name__ == "__main__":
