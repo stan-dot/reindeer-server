@@ -23,7 +23,18 @@ def best_trips(city_name, dollar_budget, days, n_people, n_offers=10):
     hotel_budget = dollar_budget - living_cost
     n_rooms = math.ceil(n_people / 2)
     max_hotel_price = hotel_budget / (n_rooms * days)
-    return get_trips(all_hotels, days, living_cost, n_rooms, city_name, max_hotel_price)
+    return sorted(get_trips(all_hotels, days, living_cost, n_rooms, city_name, max_hotel_price),
+                  key=lambda x: x['total cost'])
+
+
+def best_trips_all_cities(dollar_budget, days, n_people, n_offers=10):
+    all_cities = JsonRepository()
+    all_cities.load_from_json(LIVING_COST_PATH)
+    trips = []
+    for city in all_cities.find_all():
+        city_name = city['city']
+        trips += best_trips(city_name, dollar_budget, days, n_people, n_offers)
+    return sorted(trips, key=lambda x: x['total cost'])
 
 
 def get_trips(all_hotels, days, living_cost, n_rooms, city_name, max_hotel_price):
