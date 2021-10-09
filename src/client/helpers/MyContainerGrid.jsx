@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import * as React from 'react';
-import { TEXTFIELD_LABELS } from './helpers/currencies';
+import { TEXTFIELD_LABELS } from './currencies.jsx';
 
 export function MyContainerGrid({ children }) {
   return <Grid

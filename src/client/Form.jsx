@@ -10,7 +10,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { io } from 'socket.io-client';
 import { MyButton } from './helpers/Elements';
 import { currencies } from './helpers/currencies';
-import { MyContainerGrid, MyTextField } from './MyContainerGrid';
+import { MyContainerGrid, MyTextField } from './helpers/MyContainerGrid';
 
 /**
  * PARAMETERS FOR SEARCH
