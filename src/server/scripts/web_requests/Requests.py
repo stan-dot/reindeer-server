@@ -63,7 +63,11 @@ class LivingCostRequest(Request):
         summary = self._get_summary_by_city_only(driver)
         if summary is None:
             summary = self._get_summary_by_country_and_city(driver)
-        return self._get_single_person_spending_from_summary(summary)
+        if summary is None:
+            return None
+        cost = self._get_single_person_spending_from_summary(summary)
+        driver.close()
+        return cost
 
 
 class TripAdvisorRequest(Request):
@@ -148,4 +152,5 @@ class TripAdvisorRequest(Request):
         for city, link, price in hotels_list:
             if price != -1:
                 hotels_dict_list.append({'city': city, 'link': link, 'price': price})
+        driver.close()
         return hotels_dict_list
