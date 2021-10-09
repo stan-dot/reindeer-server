@@ -1,4 +1,5 @@
 from web_requests.Requests import LivingCostRequest, TripAdvisorRequest, GoogleImageRequest
+from trip_selector.candidate_trips_selector import best_trips
 import sys
 import json
 
@@ -16,11 +17,8 @@ To the world""",
 
 
 def main():
+    print(best_trips(100, 2, 1))
     print(json.dumps(send_message_back))
-    r = GoogleImageRequest(
-        "Edinburgh", "United Kingdom", "/home/wojciech/chromedriver/chromedriver", 3
-    )
-    print(r.execute())
 
 
 if __name__ == "__main__":
