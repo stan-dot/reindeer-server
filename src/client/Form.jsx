@@ -16,7 +16,8 @@ const DEFAULT_VALUES = {
   BUDGET: 10000,
   CITY: "London",
   CURRENCY: 'GBP',
-  NUMBER: 1
+  NUMBER: 1,
+  DATE : [new Date(), new Date()]
 
 }
 /**
@@ -30,19 +31,20 @@ const DEFAULT_VALUES = {
 export default function Form({callback}) {
   const socket = io()
   socket.on("data", data => {
+    console.log("sending data to display to results element");
     callback(data)
   })
-  const [dateStatus, onDateChange] = useState([new Date(), new Date()]);
+  const [dateStatus, onDateChange] = useState(DEFAULT_VALUES.DATE);
   const [people, setNumberOfPeople] = useState(DEFAULT_VALUES.NUMBER);
   const [budget, setBudget] = useState(DEFAULT_VALUES.BUDGET);
   const [currency, setCurrency] = useState(DEFAULT_VALUES.CURRENCY);
   const [city, setCity] = useState(DEFAULT_VALUES.CITY);
 
   const resetForm = () => {
-    onDateChange([new Date(), new Date()]);
-    setBudget()
-    setCurrency('EUR');
-    setCity('');
+    onDateChange(DEFAULT_VALUES.DATE);
+    setBudget(DEFAULT_VALUES.BUDGET)
+    setCurrency(DEFAULT_VALUES.CURRENCY);
+    setCity(DEFAULT_VALUES.CITY);
   }
 
   const handleSubmit = e => {

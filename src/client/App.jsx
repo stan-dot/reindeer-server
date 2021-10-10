@@ -1,5 +1,5 @@
 import { Button, Grid, Paper } from '@material-ui/core';
-import { ImageList , } from '@mui/material';
+import { ImageList, } from '@mui/material';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import React from 'react';
@@ -21,22 +21,17 @@ export default function App() {
       rowHeight={350}
     >
       <ReindeerImg name={frame} />
-      <ReindeerImg name={frame} />
-      <ReindeerImg name={frame} />
-      <ReindeerImg name={frame} />
-      <ReindeerImg name={frame} />
-      <ReindeerImg name={frame} />
-      <ReindeerImg name={frame} />
+      <ReindeerImg name={frame} rotation={180} />
     </ImageList>
     <AppBar position="static">
       <Toolbar className="App-header" color="inherit">
-        <Button > search again</Button>
+        <h2>Reindeer</h2>
       </Toolbar>
     </AppBar>
     <Paper elevation={2}>
       <MyContainerGrid>
         <Grid item xs={3}>
-          <Form callback={setResults}/>
+          <Form callback={setResults} />
         </Grid>
         <Grid item xs={3}>
           <Paper elevation={6}>

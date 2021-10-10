@@ -13,6 +13,7 @@ const io = new Server(server, {
   pingInterval: 300,
   pingTimeout: 5000
 })
+
 io.on("connection", socket => {
   socket.send("hello, socket connection established")
   console.log("connected to the client");
@@ -23,9 +24,10 @@ io.on("connection", socket => {
       try {
         console.log("running the script");
         const output = await run(data)
-        logOutput('main')(output.message)
-        socket.send("data", data);
-        process.exit(0)
+        logOutput('main')(output)
+        console.log("about to send data");
+        socket.emit("data", output);
+        console.log("data successfully sent: ", Object.values(output));
       } catch (e) {
         console.error('Error during script execution ', e.stack);
         process.exit(1);

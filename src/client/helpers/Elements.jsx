@@ -1,7 +1,6 @@
 import { Button } from "@material-ui/core"
 
-
-export function MyButton({name, callback}) {
+export function MyButton({ name, callback }) {
   const fullName = name + "Button";
   return <Button
     className={fullName}

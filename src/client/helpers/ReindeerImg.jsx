@@ -5,13 +5,14 @@ const varToString = varObj => Object.keys(varObj)[0]
 // const displayName = varToString({ someVar })
 // console.log(displayName)
 
-export default function ReindeerImg({ name }) {
+export default function ReindeerImg({ name, rotation = 0 }) {
   const str = varToString(name);
   return <img
     src={name}
     rel={"reindeer-" + str}
     href={"%PUBLIC_URL%/reindeer-" + str + ".jpg"}
     alt={'reindeer ' + str}
+    rotation={rotation}
     height={IMG_DIMENSIONS.HEIGHT / 3}
     width={IMG_DIMENSIONS.WIDTH / 4}
     style={{

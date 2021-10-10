@@ -1,4 +1,5 @@
 import { Box, ImageList, TextField, ImageListItem } from "@material-ui/core";
+import { Paper } from "@mui/material";
 import { io } from 'socket.io-client';
 
 const itemData = [
@@ -22,11 +23,8 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-export default function Results({data}) {
-  const socket = io()
-  socket.on("data", data => {
-
-  })
+export default function Results({ data }) {
+  console.log("that's data from the server: ", data);
   return <Box
     component="form"
     sx={{
@@ -35,7 +33,25 @@ export default function Results({data}) {
     noValidate
     autoComplete="off"
   >
-    <ImageList
+    <Paper elevation={5}  >
+      {data.map(value => <Offer value={value} />)}
+    </Paper>
+  </Box>
+}
+
+function Offer({ value }) {
+  const city = value.city;
+  const link = value.link;
+  const price = value.total_cost;
+  return <Paper elevation={8}>
+    <a href={link}>{city}, for {price}</a>
+  </Paper>
+}
+
+/**
+ * 
+ * 
+ * <ImageList
       sx={{ width: 500, height: 450 }}
       variant="quilted"
       cols={4}
@@ -55,6 +71,5 @@ export default function Results({data}) {
         </ImageListItem>
       ))}
     </ImageList>
-    {data}
-  </Box>
-}
+ * 
+ */
