@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 from selenium.webdriver.chrome.options import Options
 import time
-import urllib3
 
 
 IMAGES_DIR = '../data/images/'

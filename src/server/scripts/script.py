@@ -1,4 +1,3 @@
-from web_requests.Requests import LivingCostRequest, TripAdvisorRequest, GoogleImageRequest
 from trip_selector.candidate_trips_selector import best_trips, best_trips_all_cities
 from data_preprocessing.currency_convert import convert_to_dollars
 import sys

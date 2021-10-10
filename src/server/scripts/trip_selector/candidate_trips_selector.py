@@ -1,7 +1,4 @@
-import json
-import pandas as pd
 import math
-from tqdm import tqdm
 from model.trip_logic import JsonRepository
 
 HOTELS_JSON_PATH = 'data/dollarHotels.json'
