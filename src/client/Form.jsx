@@ -13,10 +13,10 @@ import { MyContainerGrid, MyTextField } from './helpers/MyContainerGrid';
 
 const DEFAULT_VALUES = {
   MIN_LENGTH: 5,
-  BUDGET: 10000,
+  BUDGET: 2000,
   CITY: "London",
   CURRENCY: 'GBP',
-  NUMBER: 1,
+  NUMBER: 2,
   DATE : [new Date(), new Date()]
 
 }
@@ -77,7 +77,7 @@ export default function Form({callback}) {
         <TextField
           id="outlined-select-group-size"
           select
-          label="Group size"
+          label="2"
           helperText="Number of travellers"
           style={{ minHeight: '10vh' }}
           onClick={setNumberOfPeople}
