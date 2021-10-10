@@ -33,9 +33,9 @@ def main():
     else:
         dollar_budget = budget
     if city_name == "":
-        trips = best_trips("London", dollar_budget, 1, 1)
-    else:
         trips = best_trips_all_cities(dollar_budget, days, n_people)
+    else:
+        trips = best_trips(city_name, dollar_budget, days, n_people)
     print(json.dumps(trips))
 
 
