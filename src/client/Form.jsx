@@ -12,8 +12,8 @@ import { MyButton } from './helpers/Elements';
 import { MyContainerGrid, MyTextField } from './helpers/MyContainerGrid';
 
 const DEFAULT_VALUES = {
-  MIN_LENGTH: 2,
-  BUDGET: 100,
+  MIN_LENGTH: 5,
+  BUDGET: 10000,
   CITY: "London",
   CURRENCY: 'GBP',
   NUMBER: 1
