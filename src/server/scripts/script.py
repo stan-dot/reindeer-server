@@ -20,19 +20,20 @@ To the world""",
 
 
 def main():
-    json_str = " ".join(sys.argv[1:])
-    json_data = json.loads(json_str)
-    city_name = json_data['city']
-    currency_symbol = json_data['currency']
-    budget = json_data['budget']
-    days = json_data['days']
-    n_people = json_data['people']
-    if currency_symbol != 'USD':
+    # json_str = " ".join(sys.argv[1:])
+    json_data = json.loads(sys.argv[1])
+    # json_data = json.loads(json_str)
+    city_name = json_data["city"]
+    currency_symbol = json_data["currency"]
+    budget = json_data["budget"]
+    days = json_data["days"]
+    n_people = json_data["people"]
+    if currency_symbol != "USD":
         dollar_budget = convert_to_dollars(budget, currency_symbol)
     else:
         dollar_budget = budget
-    if city_name == '':
-        trips = best_trips('London', dollar_budget, 1, 1)
+    if city_name == "":
+        trips = best_trips("London", dollar_budget, 1, 1)
     else:
         trips = best_trips_all_cities(dollar_budget, days, n_people)
     print(json.dumps(trips))

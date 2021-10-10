@@ -33,7 +33,7 @@ io.on("connection", socket => {
     })();
   })
 })
-console.log("that's the io: ", io);
+// console.log("that's the io: ", io);
 
 app.use(cors())
 app.use(express.static("build"))

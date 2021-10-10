@@ -6,11 +6,13 @@ export const logOutput = (name) => (message) => console.log(`[${name}] ${message
 
 export default function run(args) {
   console.log("args: ", args);
-  console.log("args type ", typeof args);
+  // console.log("args type ", typeof args);
   const values = Object.values(args)
   console.log("args values ", values);
+  const str = JSON.stringify(args)
+  console.log("stringifed: ", str);
   return new Promise((resolve, reject) => {
-    const process = spawn('python', [myPath, [...values]]);
+    const process = spawn('python', [myPath, str]);
 
     const out = []
     process.stdout.on(

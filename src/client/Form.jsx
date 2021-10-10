@@ -32,7 +32,7 @@ export default function Form() {
   socket.on("data", data => {
   })
   const [dateStatus, onDateChange] = useState([new Date(), new Date()]);
-  const [number, setNumber] = useState(DEFAULT_VALUES.NUMBER);
+  const [people, setNumberOfPeople] = useState(DEFAULT_VALUES.NUMBER);
   const [budget, setBudget] = useState(DEFAULT_VALUES.BUDGET);
   const [currency, setCurrency] = useState(DEFAULT_VALUES.CURRENCY);
   const [city, setCity] = useState(DEFAULT_VALUES.CITY);
@@ -48,12 +48,13 @@ export default function Form() {
     e.preventDefault()
     const diffTime = Math.max(Math.abs(dateStatus[0] - dateStatus[1]), DEFAULT_VALUES.MIN_LENGTH)
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    // example input {\"city\": \"New York\",\"budget\": 1700,\"currency\": \"GBP\",\"days\": 1,\"people\": 1}
     const formData = {
-      days: diffDays,
-      budget: budget,
-      number: number,
       city: city,
-      currency: currency
+      budget: budget,
+      currency: currency,
+      days: diffDays,
+      people: people,
     }
     console.log(formData);
     socket.emit("query", formData)
@@ -76,7 +77,7 @@ export default function Form() {
           label="Group size"
           helperText="Number of travellers"
           style={{ minHeight: '10vh' }}
-          onClick={setNumber}
+          onClick={setNumberOfPeople}
         >
           {[...Array(6)].map((_, i) => i).map(value => (
             < MenuItem key={"key-" + value} value={value}>

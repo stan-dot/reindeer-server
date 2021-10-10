@@ -1,8 +1,9 @@
 import math
 from model.trip_logic import JsonRepository
 
-HOTELS_JSON_PATH = 'data/dollarHotels.json'
-LIVING_COST_PATH = 'data/dollarLivingCost.json'
+HOTELS_JSON_PATH = 'C:/Users/Hyperbook/Documents/GitHub/reindeer_app/src/server/scripts/data/dollarHotels.json'
+LIVING_COST_PATH = 'C:/Users/Hyperbook/Documents/GitHub/reindeer_app/src/server/scripts/data/dollarLivingCost.json'
+#  LIVING_COST_PATH = 'data/dollarLivingCost.json'
 
 
 def best_trips(city_name, dollar_budget, days, n_people, n_offers=10):
