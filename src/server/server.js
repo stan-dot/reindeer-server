@@ -1,4 +1,5 @@
 import { logOutput } from './runScript.js';
+import cors from 'cors';
 import run from './runScript.js';
 import express from 'express';
 import http from 'http';
@@ -30,6 +31,7 @@ io.on("query", data => {
     }
   })();
 })
+app.use(cors())
 app.use(express.static("build"))
 app.use(express.static("public"))
 app.get('/', (req, res) => {
@@ -37,6 +39,6 @@ app.get('/', (req, res) => {
   res.sendFile("./index.html")
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
