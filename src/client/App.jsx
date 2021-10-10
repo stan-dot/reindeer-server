@@ -12,6 +12,7 @@ import { MyContainerGrid } from './helpers/MyContainerGrid';
 // https://unsplash.com/photos/mSaa5BVUoY8 source of the photo
 // https://fonts.google.com/specimen/Bungee+Inline?category=Display#about the font
 export default function App() {
+  const [results, setResults] = React.useState([])
   return <div className="App">
     <ImageList
       sx={{ width: 500, height: 350 }}
@@ -35,11 +36,11 @@ export default function App() {
     <Paper elevation={2}>
       <MyContainerGrid>
         <Grid item xs={3}>
-          <Form />
+          <Form callback={setResults}/>
         </Grid>
         <Grid item xs={3}>
           <Paper elevation={6}>
-            <Results />
+            <Results data={results} />
           </Paper>
         </Grid>
       </MyContainerGrid>

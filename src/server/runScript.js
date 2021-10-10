@@ -13,7 +13,6 @@ export default function run(args) {
   console.log("stringifed: ", str);
   return new Promise((resolve, reject) => {
     const process = spawn('python', [myPath, str]);
-
     const out = []
     process.stdout.on(
       'data', data => {
