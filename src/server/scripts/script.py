@@ -39,7 +39,7 @@ def main():
     else:
         trips = best_trips(city_name, dollar_budget, days, n_people)
     offer_len = min(len(trips), MAX_OFFER_LEN)
-    print(json.dumps(trips)[:offer_len])
+    print(json.dumps(trips[:offer_len]))
 
 
 if __name__ == "__main__":
