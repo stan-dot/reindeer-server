@@ -5,8 +5,12 @@ const myPath = './src/server/scripts/script.py';
 export const logOutput = (name) => (message) => console.log(`[${name}] ${message}`)
 
 export default function run(args) {
+  console.log("args: ", args);
+  console.log("args type ", typeof args);
+  const values = Object.values(args)
+  console.log("args values ", values);
   return new Promise((resolve, reject) => {
-    const process = spawn('python', [myPath, [...args]]);
+    const process = spawn('python', [myPath, [...values]]);
 
     const out = []
     process.stdout.on(

@@ -16,6 +16,22 @@ const io = new Server(server, {
 io.on("connection", socket => {
   socket.send("hello, socket connection established")
   console.log("connected to the client");
+
+  socket.on("query", data => {
+    console.log("got query data");
+    (async () => {
+      try {
+        console.log("running the script");
+        const output = await run(data)
+        logOutput('main')(output.message)
+        io.allSockets.send(data);
+        process.exit(0)
+      } catch (e) {
+        console.error('Error during script execution ', e.stack);
+        process.exit(1);
+      }
+    })();
+  })
 })
 console.log("that's the io: ", io);
 
@@ -31,18 +47,3 @@ server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-io.on("query", data => {
-  console.log("got query data");
-  (async () => {
-    try {
-      console.log("running the script");
-      const output = await run(data)
-      logOutput('main')(output.message)
-      io.allSockets.send(data);
-      process.exit(0)
-    } catch (e) {
-      console.error('Error during script execution ', e.stack);
-      process.exit(1);
-    }
-  })();
-})
