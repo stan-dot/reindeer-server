@@ -9,25 +9,19 @@ import frame from './img/reindeer-frame.jpg';
 import ReindeerImg from './helpers/ReindeerImg';
 import Results from './Results';
 import { MyContainerGrid } from './helpers/MyContainerGrid';
+import { IMG_DIMENSIONS } from './helpers/Constants';
 // https://unsplash.com/photos/mSaa5BVUoY8 source of the photo
 // https://fonts.google.com/specimen/Bungee+Inline?category=Display#about the font
 export default function App() {
   const [results, setResults] = React.useState([])
   return <div className="App">
-    <ImageList
-      sx={{ width: 500, height: 350 }}
-      variant="woven"
-      cols={3}
-      rowHeight={350}
-    >
+    <Toolbar className="App-header" color="inherit" variant="dense"
+      style={{ display: "flex", flexDirection: "row", minHeight:IMG_DIMENSIONS.HEIGHT }}
+      >
       <ReindeerImg name={frame} />
-      <ReindeerImg name={frame} rotation={180} />
-    </ImageList>
-    <AppBar position="static">
-      <Toolbar className="App-header" color="inherit">
-        <h2>Reindeer</h2>
-      </Toolbar>
-    </AppBar>
+      <h2>Reindeer</h2>
+      <ReindeerImg name={frame} rotation={"180"} />
+    </Toolbar>
     <Paper elevation={2}>
       <MyContainerGrid>
         <Grid item xs={3}>

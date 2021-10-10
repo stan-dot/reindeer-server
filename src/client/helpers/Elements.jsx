@@ -6,7 +6,7 @@ export function MyButton({ name, callback }) {
     className={fullName}
     variant="contained"
     id={fullName}
-    color="primary"
+    color={"#aeb5b3"}
     component="button"
     onClick={callback}
     disabled={false}>

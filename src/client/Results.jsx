@@ -44,7 +44,7 @@ function Offer({ value }) {
   const link = value.link;
   const price = value.total_cost;
   return <Paper elevation={8}>
-    <a href={link}>{city}, for {price}</a>
+    <a href={link}>{city}, for ${price}</a>
   </Paper>
 }
 
