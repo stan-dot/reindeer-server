@@ -16,6 +16,8 @@ To the world""",
 }
 
 
+MAX_OFFER_LEN = 10
+
 # example input {\"city\": \"New York\",\"budget\": 1700,\"currency\": \"GBP\",\"days\": 1,\"people\": 1}
 
 
@@ -36,7 +38,8 @@ def main():
         trips = best_trips_all_cities(dollar_budget, days, n_people)
     else:
         trips = best_trips(city_name, dollar_budget, days, n_people)
-    print(json.dumps(trips))
+    offer_len = min(len(trips), MAX_OFFER_LEN)
+    print(json.dumps(trips)[:offer_len])
 
 
 if __name__ == "__main__":
