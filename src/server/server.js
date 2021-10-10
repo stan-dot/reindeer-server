@@ -24,7 +24,7 @@ io.on("connection", socket => {
         console.log("running the script");
         const output = await run(data)
         logOutput('main')(output.message)
-        io.allSockets.send(data);
+        socket.send("data", data);
         process.exit(0)
       } catch (e) {
         console.error('Error during script execution ', e.stack);

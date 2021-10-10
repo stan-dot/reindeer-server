@@ -22,7 +22,7 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-export default function Results() {
+export default function Results({data}) {
   const socket = io()
   socket.on("data", data => {
 
@@ -55,5 +55,6 @@ export default function Results() {
         </ImageListItem>
       ))}
     </ImageList>
+    {data}
   </Box>
 }

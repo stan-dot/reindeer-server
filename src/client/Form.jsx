@@ -27,9 +27,10 @@ const DEFAULT_VALUES = {
  * time
  * @returns 
  */
-export default function Form() {
+export default function Form({callback}) {
   const socket = io()
   socket.on("data", data => {
+    callback(data)
   })
   const [dateStatus, onDateChange] = useState([new Date(), new Date()]);
   const [people, setNumberOfPeople] = useState(DEFAULT_VALUES.NUMBER);
