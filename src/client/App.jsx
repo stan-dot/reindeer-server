@@ -11,8 +11,6 @@ import Results from './Results';
 import { MyContainerGrid } from './helpers/MyContainerGrid';
 // https://unsplash.com/photos/mSaa5BVUoY8 source of the photo
 // https://fonts.google.com/specimen/Bungee+Inline?category=Display#about the font
-// TODO https://github.com/mui-org/material-ui/blob/next/docs/src/pages/getting-started/templates/album/Album.js
-// TODO https://www.jamestharpe.com/react-visjs/
 export default function App() {
   return <div className="App">
     <ImageList

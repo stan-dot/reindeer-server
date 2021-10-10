@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core"
 
 
-export function MyButton({name,}) {
+export function MyButton({name, callback}) {
   const fullName = name + "Button";
   return <Button
     className={fullName}
@@ -9,7 +9,7 @@ export function MyButton({name,}) {
     id={fullName}
     color="primary"
     component="button"
-    onClick={console.log("clicked!")}
+    onClick={callback}
     disabled={false}>
     {name}
   </Button>

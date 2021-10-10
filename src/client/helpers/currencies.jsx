@@ -12,6 +12,7 @@ export const currencies = [
     label: '£'
   }
 ];
+
 export const TEXTFIELD_LABELS = {
   OUTLINED: "outlined",
   FILLED: "filled",
