@@ -22,7 +22,7 @@ def best_trips(city_name, dollar_budget, days, n_people, n_offers=10):
     n_rooms = math.ceil(n_people / 2)
     max_hotel_price = hotel_budget / (n_rooms * days)
     return sorted(get_trips(all_hotels, days, living_cost, n_rooms, city_name, max_hotel_price),
-                  key=lambda x: x['total cost'])
+                  key=lambda x: x['total_cost'])
 
 
 def best_trips_all_cities(dollar_budget, days, n_people, n_offers=10):
@@ -32,7 +32,7 @@ def best_trips_all_cities(dollar_budget, days, n_people, n_offers=10):
     for city in all_cities.find_all():
         city_name = city['city']
         trips += best_trips(city_name, dollar_budget, days, n_people, n_offers)
-    return sorted(trips, key=lambda x: x['total cost'])
+    return sorted(trips, key=lambda x: x['total_cost'])
 
 
 def get_trips(all_hotels, days, living_cost, n_rooms, city_name, max_hotel_price):
@@ -40,5 +40,5 @@ def get_trips(all_hotels, days, living_cost, n_rooms, city_name, max_hotel_price
     trips = []
     for h in hotels:
         trip_cost = h['price'] * n_rooms * days + living_cost
-        trips.append({'city': h['city'], 'link': h['link'], 'total cost': trip_cost * 100 // 100})
+        trips.append({'city': h['city'], 'link': h['link'], 'total_cost': trip_cost * 100 // 100})
     return trips
